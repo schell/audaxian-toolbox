@@ -1,0 +1,14 @@
+.ghci
+.ghcid
+.stack-work
+.DS_Store
+.#*
+*.pem
+schell/
+*.cabal
+todo.cabal
+docs/site
+creds.aws
+e2e.yml
+job-server-jobs.txt
+TAGS
