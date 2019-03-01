@@ -5,8 +5,6 @@
 .#*
 *.pem
 schell/
-*.cabal
-todo.cabal
 docs/site
 creds.aws
 e2e.yml
