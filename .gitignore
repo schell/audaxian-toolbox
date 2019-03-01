@@ -6,6 +6,7 @@
 *.pem
 schell/
 docs/site
+*.cabal
 creds.aws
 e2e.yml
 job-server-jobs.txt
