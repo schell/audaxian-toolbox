@@ -1,6 +1,6 @@
 module Main where
 
-import Lib
+import Audax
 
 main :: IO ()
 main = someFunc
