@@ -32,8 +32,7 @@ class MonadKVStore m where
   listKVStoreKeys
     :: Text
     -- ^ The key prefix
-    -> m [(Text, Text)]
-
+    -> m (Either String [(Text, Text)])
 
 
 class ToKVKeys a where
