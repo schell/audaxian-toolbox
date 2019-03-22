@@ -28,6 +28,12 @@ class MonadKVStore m where
     -- ^ The second key
     -> m (Either String ByteString)
     -- ^ Possibly a value from a table by its key, or an error.
+  -- | List the keys from the store that match the given prefix.
+  listKVStoreKeys
+    :: Text
+    -- ^ The key prefix
+    -> m [(Text, Text)]
+
 
 
 class ToKVKeys a where
