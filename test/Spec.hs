@@ -26,14 +26,15 @@ import           Audax.Prelude
 
 data TestOptions
   = TestOptions
-  { testOptionsCreds  :: AWSCredentials
-  , testOptionsRegion :: Region
-  , testOptionsBucket :: BucketName
+  { testOptionsCreds            :: AWSCredentials
+  , testOptionsRegion           :: Region
+  , testOptionsBucket           :: BucketName
+  , testOptionsShouldRunS3Tests :: Bool
   } deriving (Generic)
 
 
 instance Show TestOptions where
-  show (TestOptions _ r b)
+  show (TestOptions _ r b s3)
     = unwords [ "TestOptions"
               , "{"
               , "testOptionsCreds = {_},"
@@ -42,6 +43,9 @@ instance Show TestOptions where
               , ","
               , "testOptionsBucket ="
               , show b
+              , ","
+              , "testOptionsShouldRunS3Tests ="
+              , show s3
               , "}"
               ]
 
@@ -52,22 +56,23 @@ instance FromJSON TestOptions where
       <$> o .: "credentials"
       <*> o .: "region"
       <*> o .: "bucket"
+      <*> (o .: "shouldRunS3Tests" <|> return False)
   parseJSON v
     = typeMismatch "TestOptions" v
 
 
 instance MonadIO m => MonadKVStore (ReaderT TestOptions m) where
   sendToKVStore t k v = do
-    TestOptions c r b <- ask
+    TestOptions c r b _ <- ask
     sendToS3KVStore c r b t k v
   readFromKVStore t k = do
-    TestOptions c r b <- ask
+    TestOptions c r b _ <- ask
     readFromS3KVStore c r b t k
   listKVStoreKeys t = do
-    TestOptions c r b <- ask
+    TestOptions c r b _ <- ask
     listFromS3KVStore c r b t Nothing
   deleteFromKVStore t k = do
-    TestOptions c r b <- ask
+    TestOptions c r b _ <- ask
     deleteFromS3KVStore c r b t k
 
 
