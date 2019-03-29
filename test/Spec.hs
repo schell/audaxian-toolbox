@@ -164,18 +164,19 @@ main :: IO ()
 main = do
   opts <- getYamlFile "cfg.yml"
   name <- UUID.toText <$> nextRandom
-  hspec $ describe "KVStore" $ do
-    it "should be able to encode to s3 as KV pair"
-      $ canEncodeKVPair name opts
+  when (testOptionsShouldRunS3Tests opts) $
+    hspec $ describe "KVStore - S3" $ do
+      it "should be able to encode to s3 as KV pair"
+        $ canEncodeKVPair name opts
 
-    it "should be able to list the encoded thing"
-      $ canListEncodedPair name opts
+      it "should be able to list the encoded thing"
+        $ canListEncodedPair name opts
 
-    it "should be able to read the encoded thing"
-      $ canReadKVPair name opts
+      it "should be able to read the encoded thing"
+        $ canReadKVPair name opts
 
-    it "should be able to decode the encoded thing"
-      $ canDecodeKVPair name opts
+      it "should be able to decode the encoded thing"
+        $ canDecodeKVPair name opts
 
-    it "should be able to delete the thing"
-      $ canDeleteKV name opts
+      it "should be able to delete the thing"
+        $ canDeleteKV name opts
