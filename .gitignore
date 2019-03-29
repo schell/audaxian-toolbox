@@ -8,5 +8,6 @@ schell/
 docs/site
 creds.aws
 e2e.yml
+cfg.yml
 job-server-jobs.txt
 TAGS

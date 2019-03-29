@@ -19,7 +19,7 @@ class MonadKVStore m where
     -- ^ The second key
     -> ByteString
     -- ^ The serialized value
-    -> m ()
+    -> m (Either String ())
   -- | Reads a value in a table at the given key.
   readFromKVStore
     :: Text
@@ -33,6 +33,11 @@ class MonadKVStore m where
     :: Text
     -- ^ The key prefix
     -> m (Either String [(Text, Text)])
+  -- | Deletes a value from the key value store.
+  deleteFromKVStore
+    :: Text
+    -> Text
+    -> m (Either String ())
 
 
 class ToKVKeys a where
@@ -44,14 +49,14 @@ encodeToKVStore
   => Text
   -> Text
   -> a
-  -> m ()
+  -> m (Either String ())
 encodeToKVStore t k = sendToKVStore t k . encode
 
 
 encodeToKVStoreAsKVPair
   :: (MonadKVStore m, ToKVKeys a, ToJSON a)
   => a
-  -> m ()
+  -> m (Either String ())
 encodeToKVStoreAsKVPair a =
   let (t, k) = toKVKeys a
   in sendToKVStore t k $ encode a

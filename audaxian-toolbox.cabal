@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 921134b152fe7798e3c86288df3875b2f19329ad20fbd908072984669bb9aef5
+-- hash: d10e7fb486e7e70c967eb34311f92606d7e4e33defed50d3dd4db2c466c693fc
 
 name:           audaxian-toolbox
 version:        0.1.0.0
@@ -27,9 +27,10 @@ source-repository head
 
 library
   exposed-modules:
-      Audax
       Audax.KVStore
       Audax.KVStore.S3
+      Audax.Options
+      Audax.Prelude
   other-modules:
       Paths_audaxian_toolbox
   hs-source-dirs:
@@ -43,35 +44,16 @@ library
     , conduit >=1.3
     , conduit-extra >=1.3
     , lens >=4.16
+    , monad-logger
     , mtl >=2.2
+    , optparse-applicative
+    , pretty-show >=1.6
     , resourcet >=1.2
     , text >=1.2
     , unliftio >=0.2.7
     , unliftio-core >=0.1.2
-  default-language: Haskell2010
-
-executable audaxian-toolbox-exe
-  main-is: Main.hs
-  other-modules:
-      Paths_audaxian_toolbox
-  hs-source-dirs:
-      app
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
-  build-depends:
-      aeson >=1.3
-    , amazonka >=1.6
-    , amazonka-s3 >=1.6
-    , audaxian-toolbox
-    , base >=4.7 && <5
-    , bytestring >=0.10
-    , conduit >=1.3
-    , conduit-extra >=1.3
-    , lens >=4.16
-    , mtl >=2.2
-    , resourcet >=1.2
-    , text >=1.2
-    , unliftio >=0.2.7
-    , unliftio-core >=0.1.2
+    , uuid
+    , yaml
   default-language: Haskell2010
 
 test-suite audaxian-toolbox-test
@@ -91,10 +73,16 @@ test-suite audaxian-toolbox-test
     , bytestring >=0.10
     , conduit >=1.3
     , conduit-extra >=1.3
+    , hspec
     , lens >=4.16
+    , monad-logger
     , mtl >=2.2
+    , optparse-applicative
+    , pretty-show >=1.6
     , resourcet >=1.2
     , text >=1.2
     , unliftio >=0.2.7
     , unliftio-core >=0.1.2
+    , uuid
+    , yaml
   default-language: Haskell2010
