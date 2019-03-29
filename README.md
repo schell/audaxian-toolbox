@@ -1,4 +1,7 @@
 # audaxian-toolbox
+
+![status](https://gitlab.com/schell/audaxian-toolbox/badges/master/build.svg)
+
 This is a collection of Haskell monads, patterns and utilities for building web
 applications. [Phiddipus audax](https://en.wikipedia.org/wiki/Phidippus_audax)
 is a really cool spider I found in my back yard. Like an agile spider, this
